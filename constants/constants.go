@@ -12,9 +12,14 @@ const (
 	SectionUSPCO  SectionID = 10
 	SectionUSPUT  SectionID = 11
 	SectionUSPCT  SectionID = 12
-	SectionUSPTX  SectionID = 16
-	SectionUSPOR  SectionID = 15
 	SectionUSPMT  SectionID = 14
+	SectionUSPOR  SectionID = 15
+	SectionUSPTX  SectionID = 16
+	SectionUSPDE  SectionID = 17
+	SectionUSPIA  SectionID = 18
+	SectionUSPNE  SectionID = 19
+	SectionUSPNH  SectionID = 20
+	SectionUSPNJ  SectionID = 21
 )
 
 var SectionNamesByID = map[int]string{
@@ -27,6 +32,12 @@ var SectionNamesByID = map[int]string{
 	10: "uspco",
 	11: "usput",
 	12: "uspct",
-	16: "usptx",
+	14: "uspmt",
 	15: "uspor",
+	16: "usptx",
+	17: "uspde",
+	18: "uspia",
+	19: "uspne",
+	20: "uspnh",
+	21: "uspnj",
 }
