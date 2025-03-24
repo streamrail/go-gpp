@@ -26,6 +26,7 @@ const (
 var SectionNamesByID = map[int]string{
 	2:  "tcfeu2",
 	3:  "gpp header",
+	5:  "tcfcav1",
 	6:  "uspv1",
 	7:  "uspnat",
 	8:  "uspca",
