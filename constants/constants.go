@@ -41,4 +41,5 @@ var SectionNamesByID = map[int]string{
 	19: "uspne",
 	20: "uspnh",
 	21: "uspnj",
+	22: "usptn",
 }
