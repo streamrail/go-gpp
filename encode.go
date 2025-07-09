@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/streamrail/go-gpp/constants"
 	"github.com/streamrail/go-gpp/util"
+	"math"
 	"sort"
 	"strings"
 )
@@ -15,7 +16,7 @@ const (
 	gppVersion byte = 0x1
 	// the range of SectionID must start with 1 and end with the maximum value represented by uint16.
 	minSectionId constants.SectionID = 1
-	maxSectionId constants.SectionID = 0xffff
+	maxSectionId constants.SectionID = math.MaxInt8
 )
 
 var (
