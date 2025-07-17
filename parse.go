@@ -81,37 +81,37 @@ func Parse(v string) (GppContainer, []error) {
 		case constants.SectionUSPNAT:
 			sections[i], err = uspnat.NewUSPNAT(sectionStrings[i+1])
 			if err != nil {
-				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[int(id)], err))
+				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
 			}
 		case constants.SectionUSPCA:
 			sections[i], err = uspca.NewUSPCA(sectionStrings[i+1])
 			if err != nil {
-				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[int(id)], err))
+				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
 			}
 		case constants.SectionUSPVA:
 			sections[i], err = uspva.NewUSPVA(sectionStrings[i+1])
 			if err != nil {
-				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[int(id)], err))
+				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
 			}
 		case constants.SectionUSPCO:
 			sections[i], err = uspco.NewUSPCO(sectionStrings[i+1])
 			if err != nil {
-				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[int(id)], err))
+				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
 			}
 		case constants.SectionUSPUT:
 			sections[i], err = usput.NewUSPUT(sectionStrings[i+1])
 			if err != nil {
-				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[int(id)], err))
+				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
 			}
 		case constants.SectionUSPCT:
 			sections[i], err = uspct.NewUSPCT(sectionStrings[i+1])
 			if err != nil {
-				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[int(id)], err))
+				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
 			}
 		default:
 			sections[i] = GenericSection{sectionID: id, value: sectionStrings[i+1]}
 			if err != nil {
-				errs = append(errs, fmt.Errorf("error parsing unsupported (section %d) consent string: %s", int(id), err))
+				errs = append(errs, fmt.Errorf("error parsing unsupported (section %d) consent string: %s", id, err))
 			}
 		}
 	}
