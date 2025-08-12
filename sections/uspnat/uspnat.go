@@ -86,12 +86,12 @@ func NewUSPNATCoreSegment(bs *util.BitStream) (USPNATCoreSegment, error) {
 		return uspnatCore, sections.ErrorHelper("CoreSegment.TargetedAdvertisingOptOut", err)
 	}
 
-	uspnatCore.SensitiveDataProcessing, err = bs.ReadTwoBitField(12)
+	uspnatCore.SensitiveDataProcessing, err = bs.ReadTwoBitField(16)
 	if err != nil {
 		return uspnatCore, sections.ErrorHelper("CoreSegment.SensitiveDataProcessing", err)
 	}
 
-	uspnatCore.KnownChildSensitiveDataConsents, err = bs.ReadTwoBitField(2)
+	uspnatCore.KnownChildSensitiveDataConsents, err = bs.ReadTwoBitField(3)
 	if err != nil {
 		return uspnatCore, sections.ErrorHelper("CoreSegment.KnownChildSensitiveDataConsents", err)
 	}
