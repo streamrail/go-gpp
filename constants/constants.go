@@ -25,7 +25,7 @@ const (
 )
 
 var SectionNamesByID = map[SectionID]string{
-	SectionTCFEU2:       "tcfeu2",
+	SectionTCFEU2:       "tcfeuv2",
 	SectionGPP:          "gpp header",
 	GPPSectionTCFCanada: "tcfcav1",
 	SectionUSPV1:        "uspv1",

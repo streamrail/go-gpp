@@ -6,6 +6,7 @@ import (
 
 	"github.com/streamrail/go-gpp/constants"
 	"github.com/streamrail/go-gpp/sections"
+	"github.com/streamrail/go-gpp/sections/tcfeu2"
 	"github.com/streamrail/go-gpp/sections/uspca"
 	"github.com/streamrail/go-gpp/sections/uspva"
 	"github.com/stretchr/testify/assert"
@@ -26,8 +27,10 @@ func TestParse(t *testing.T) {
 			expected: GppContainer{
 				Version:      1,
 				SectionTypes: []constants.SectionID{2},
-				Sections: []Section{GenericSection{sectionID: 2,
-					value: "CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA"}},
+				Sections: []Section{tcfeu2.TCFEU2{
+					SectionID: 2,
+					Value:     "CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA",
+				}},
 			},
 		},
 		"gpp-tcf-valid-quantum": { // header is valid base64 quantum, should gracefully decode correctly
@@ -36,8 +39,10 @@ func TestParse(t *testing.T) {
 			expected: GppContainer{
 				Version:      1,
 				SectionTypes: []constants.SectionID{2},
-				Sections: []Section{GenericSection{sectionID: 2,
-					value: "CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA"}},
+				Sections: []Section{tcfeu2.TCFEU2{
+					SectionID: 2,
+					Value:     "CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA",
+				}},
 			},
 		},
 		"gpp-tcf-usp": {
@@ -46,10 +51,13 @@ func TestParse(t *testing.T) {
 			expected: GppContainer{
 				Version:      1,
 				SectionTypes: []constants.SectionID{2, 6},
-				Sections: []Section{GenericSection{sectionID: 2,
-					value: "CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA"},
-					GenericSection{sectionID: 6,
-						value: "1YNN"}},
+				Sections: []Section{
+					tcfeu2.TCFEU2{
+						SectionID: 2,
+						Value:     "CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA",
+					},
+					GenericSection{sectionID: 6, value: "1YNN"},
+				},
 			},
 		},
 		"gpp-tcfca-usp": {
@@ -131,8 +139,10 @@ func TestParse(t *testing.T) {
 			expected: GppContainer{
 				Version:      1,
 				SectionTypes: []constants.SectionID{2},
-				Sections: []Section{GenericSection{sectionID: 2,
-					value: "CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA"}},
+				Sections: []Section{tcfeu2.TCFEU2{
+					SectionID: 2,
+					Value:     "CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA",
+				}},
 			},
 			expectedError: []error{fmt.Errorf("error parsing GPP header, section identifiers: error reading an int offset value in a Range(Fibonacci) entry(1): error reading bit 4 of Integer(Fibonacci): expected 1 bit at bit 32, but the byte array was only 4 bytes long")},
 		},
@@ -149,7 +159,22 @@ func TestParse(t *testing.T) {
 
 			if len(test.expectedError) == 0 {
 				assert.Nil(t, err)
-				assert.Equal(t, test.expected, result)
+				assert.Equal(t, test.expected.Version, result.Version)
+				assert.Equal(t, test.expected.SectionTypes, result.SectionTypes)
+				if assert.Len(t, result.Sections, len(test.expected.Sections)) {
+					for i, s := range result.Sections {
+						expectedSection := test.expected.Sections[i]
+						_, isTCF := expectedSection.(tcfeu2.TCFEU2)
+						if isTCF {
+							// We don't check the CoreSegment for TCF
+							assert.Equal(t, expectedSection.GetID(), s.GetID())
+							assert.Equal(t, expectedSection.GetValue(), s.GetValue())
+							continue
+						}
+
+						assert.Equal(t, expectedSection, s)
+					}
+				}
 			} else {
 				assert.Equal(t, test.expectedError, err)
 			}
