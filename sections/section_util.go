@@ -127,7 +127,7 @@ func NewCommonUSGPCSegment(bs *util.BitStream) (CommonUSGPCSegment, error) {
 	if err != nil {
 		return commonUSGPC, ErrorHelper("GPCSegment.Gpc", err)
 	}
-	commonUSGPC.Gpc = (gpc == 1)
+	commonUSGPC.Gpc = gpc == 1
 
 	return commonUSGPC, nil
 }
