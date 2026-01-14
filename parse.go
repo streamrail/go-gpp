@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/streamrail/go-gpp/constants"
+	"github.com/streamrail/go-gpp/sections/tcfeu2"
 	"github.com/streamrail/go-gpp/sections/uspca"
 	"github.com/streamrail/go-gpp/sections/uspco"
 	"github.com/streamrail/go-gpp/sections/uspct"
@@ -105,6 +106,11 @@ func Parse(v string) (GppContainer, []error) {
 			}
 		case constants.SectionUSPCT:
 			sections[i], err = uspct.NewUSPCT(sectionStrings[i+1])
+			if err != nil {
+				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
+			}
+		case constants.SectionTCFEU2:
+			sections[i], err = tcfeu2.NewTCFEU2(sectionStrings[i+1])
 			if err != nil {
 				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
 			}
