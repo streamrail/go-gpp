@@ -8,7 +8,10 @@ import (
 	"github.com/streamrail/go-gpp/sections/uspca"
 	"github.com/streamrail/go-gpp/sections/uspco"
 	"github.com/streamrail/go-gpp/sections/uspct"
+	"github.com/streamrail/go-gpp/sections/uspin"
+	"github.com/streamrail/go-gpp/sections/uspky"
 	"github.com/streamrail/go-gpp/sections/uspnat"
+	"github.com/streamrail/go-gpp/sections/uspri"
 	"github.com/streamrail/go-gpp/sections/usput"
 	"github.com/streamrail/go-gpp/sections/uspva"
 	"github.com/streamrail/go-gpp/util"
@@ -105,6 +108,21 @@ func Parse(v string) (GppContainer, []error) {
 			}
 		case constants.SectionUSPCT:
 			sections[i], err = uspct.NewUSPCT(sectionStrings[i+1])
+			if err != nil {
+				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
+			}
+		case constants.SectionUSPIN:
+			sections[i], err = uspin.NewUSPIN(sectionStrings[i+1])
+			if err != nil {
+				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
+			}
+		case constants.SectionUSPKY:
+			sections[i], err = uspky.NewUSPKY(sectionStrings[i+1])
+			if err != nil {
+				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
+			}
+		case constants.SectionUSPRI:
+			sections[i], err = uspri.NewUSPRI(sectionStrings[i+1])
 			if err != nil {
 				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
 			}
