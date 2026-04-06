@@ -10,6 +10,7 @@ import (
 	"github.com/streamrail/go-gpp/sections/uspct"
 	"github.com/streamrail/go-gpp/sections/uspin"
 	"github.com/streamrail/go-gpp/sections/uspky"
+	"github.com/streamrail/go-gpp/sections/uspmd"
 	"github.com/streamrail/go-gpp/sections/uspnat"
 	"github.com/streamrail/go-gpp/sections/uspri"
 	"github.com/streamrail/go-gpp/sections/usput"
@@ -118,6 +119,11 @@ func Parse(v string) (GppContainer, []error) {
 			}
 		case constants.SectionUSPKY:
 			sections[i], err = uspky.NewUSPKY(sectionStrings[i+1])
+			if err != nil {
+				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
+			}
+		case constants.SectionUSPMD:
+			sections[i], err = uspmd.NewUSPMD(sectionStrings[i+1])
 			if err != nil {
 				errs = append(errs, fmt.Errorf("error parsing %s consent string: %s", constants.SectionNamesByID[id], err))
 			}

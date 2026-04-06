@@ -23,6 +23,7 @@ const (
 	SectionUSPNJ        SectionID = 21
 	SectionUSPTN        SectionID = 22
 	SectionUSPMN        SectionID = 23
+	SectionUSPMD        SectionID = 24
 	SectionUSPIN        SectionID = 25
 	SectionUSPKY        SectionID = 26
 	SectionUSPRI        SectionID = 27
@@ -52,4 +53,5 @@ var SectionNamesByID = map[SectionID]string{
 	SectionUSPIN:        "uspin",
 	SectionUSPKY:        "uspky",
 	SectionUSPRI:        "uspri",
+	SectionUSPMD:        "uspmd",
 }
