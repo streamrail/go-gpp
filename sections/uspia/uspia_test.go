@@ -18,23 +18,20 @@ func TestUSPIA(t *testing.T) {
 	testData := []uspneTestData{
 		{
 			description: "should populate USPIA segments correctly",
-			gppString:   "bSFgmJcA.YA",
-			/*
-				011011 01 00 10 00 01 0110000010011000 10 01 01 11 00 01
-			*/
+			gppString:   "bShYJicA.YA",
 			expected: USPIA{
 				CoreSegment: USPIACoreSegment{
 					Version:                         27,
 					ProcessingNotice:                1,
 					SaleOptOutNotice:                0,
 					TargetedAdvertisingOptOutNotice: 2,
+					SensitiveDataOptOutNotice:       2,
 					SaleOptOut:                      0,
 					TargetedAdvertisingOptOut:       1,
 					SensitiveDataProcessing: []byte{
 						1, 2, 0, 0, 2, 1, 2, 0,
 					},
 					KnownChildSensitiveDataConsents: 2,
-					AdditionalDataProcessingConsent: 1,
 					MspaCoveredTransaction:          1,
 					MspaOptOutOptionMode:            3,
 					MspaServiceProviderMode:         0,
@@ -44,7 +41,7 @@ func TestUSPIA(t *testing.T) {
 					Gpc:            true,
 				},
 				SectionID: constants.SectionUSPIA,
-				Value:     "bSFgmJcA.YA",
+				Value:     "bShYJicA.YA",
 			},
 		},
 	}

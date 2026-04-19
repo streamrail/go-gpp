@@ -21,7 +21,7 @@ type USPNECoreSegment struct {
 	MspaServiceProviderMode         byte
 }
 
-func NewUSIACoreSegment(bs *util.BitStream) (USPNECoreSegment, error) {
+func NewUSNECoreSegment(bs *util.BitStream) (USPNECoreSegment, error) {
 	var uspne USPNECoreSegment
 	var err error
 
@@ -118,7 +118,7 @@ func NewUSPNE(encoded string) (USPNE, error) {
 		return uspne, err
 	}
 
-	coreSegment, err := NewUSIACoreSegment(coreBitStream)
+	coreSegment, err := NewUSNECoreSegment(coreBitStream)
 	if err != nil {
 		return uspne, err
 	}

@@ -18,31 +18,28 @@ func TestUSPNAT(t *testing.T) {
 	testData := []uspnatTestData{
 		{
 			description: "should populate USPNAT segments correctly",
-			gppString:   "DSJgmkoZJSA.YA",
-			/*
-				000011 01 00 10 00 10 01 10 00 00 100110100100101000011001 0010 01 01 00 10 01 1 011
-			*/
+			gppString:   "BaaVEiFKEJJo.YA",
 			expected: USPNAT{
 				CoreSegment: USPNATCoreSegment{
-					Version:                             3,
+					Version:                             1,
 					SharingNotice:                       1,
-					SaleOptOutNotice:                    0,
+					SaleOptOutNotice:                    2,
 					SharingOptOutNotice:                 2,
-					TargetedAdvertisingOptOutNotice:     0,
+					TargetedAdvertisingOptOutNotice:     1,
 					SensitiveDataProcessingOptOutNotice: 2,
-					SensitiveDataLimitUseNotice:         1,
-					SaleOptOut:                          2,
-					SharingOptOut:                       0,
-					TargetedAdvertisingOptOut:           0,
+					SensitiveDataLimitUseNotice:         2,
+					SaleOptOut:                          1,
+					SharingOptOut:                       1,
+					TargetedAdvertisingOptOut:           1,
 					SensitiveDataProcessing: []byte{
-						2, 1, 2, 2, 1, 0, 2, 2, 0, 1, 2, 1,
+						0, 1, 0, 2, 0, 2, 0, 1, 1, 0, 2, 2, 0, 1, 0, 0,
 					},
 					KnownChildSensitiveDataConsents: []byte{
-						0, 2,
+						2, 1, 0,
 					},
-					PersonalDataConsents:    1,
+					PersonalDataConsents:    2,
 					MspaCoveredTransaction:  1,
-					MspaOptOutOptionMode:    0,
+					MspaOptOutOptionMode:    2,
 					MspaServiceProviderMode: 2,
 				},
 				GPCSegment: sections.CommonUSGPCSegment{
@@ -50,7 +47,7 @@ func TestUSPNAT(t *testing.T) {
 					Gpc:            true,
 				},
 				SectionID: constants.SectionUSPNAT,
-				Value:     "DSJgmkoZJSA.YA",
+				Value:     "BaaVEiFKEJJo.YA",
 			},
 		},
 	}

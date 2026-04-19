@@ -11,11 +11,11 @@ type USPIACoreSegment struct {
 	ProcessingNotice                byte
 	SaleOptOutNotice                byte
 	TargetedAdvertisingOptOutNotice byte
+	SensitiveDataOptOutNotice       byte
 	SaleOptOut                      byte
 	TargetedAdvertisingOptOut       byte
 	SensitiveDataProcessing         []byte
 	KnownChildSensitiveDataConsents byte
-	AdditionalDataProcessingConsent byte
 	MspaCoveredTransaction          byte
 	MspaOptOutOptionMode            byte
 	MspaServiceProviderMode         byte
@@ -45,6 +45,11 @@ func NewUSIACoreSegment(bs *util.BitStream) (USPIACoreSegment, error) {
 		return usia, sections.ErrorHelper("USIASegment.TargetedAdvertisingOptOutNotice", err)
 	}
 
+	usia.SensitiveDataOptOutNotice, err = bs.ReadByte2()
+	if err != nil {
+		return usia, sections.ErrorHelper("USIASegment.SensitiveDataOptOutNotice", err)
+	}
+
 	usia.SaleOptOut, err = bs.ReadByte2()
 	if err != nil {
 		return usia, sections.ErrorHelper("USIASegment.SaleOptOut", err)
@@ -63,11 +68,6 @@ func NewUSIACoreSegment(bs *util.BitStream) (USPIACoreSegment, error) {
 	usia.KnownChildSensitiveDataConsents, err = bs.ReadByte2()
 	if err != nil {
 		return usia, sections.ErrorHelper("USIASegment.KnownChildSensitiveDataConsentsArr", err)
-	}
-
-	usia.AdditionalDataProcessingConsent, err = bs.ReadByte2()
-	if err != nil {
-		return usia, sections.ErrorHelper("USIASegment.AdditionalDataProcessingConsent", err)
 	}
 
 	usia.MspaCoveredTransaction, err = bs.ReadByte2()
@@ -93,11 +93,11 @@ func (segment USPIACoreSegment) Encode(bs *util.BitStream) {
 	bs.WriteByte2(segment.ProcessingNotice)
 	bs.WriteByte2(segment.SaleOptOutNotice)
 	bs.WriteByte2(segment.TargetedAdvertisingOptOutNotice)
+	bs.WriteByte2(segment.SensitiveDataOptOutNotice)
 	bs.WriteByte2(segment.SaleOptOut)
 	bs.WriteByte2(segment.TargetedAdvertisingOptOut)
 	bs.WriteTwoBitField(segment.SensitiveDataProcessing)
 	bs.WriteByte2(segment.KnownChildSensitiveDataConsents)
-	bs.WriteByte2(segment.AdditionalDataProcessingConsent)
 	bs.WriteByte2(segment.MspaCoveredTransaction)
 	bs.WriteByte2(segment.MspaOptOutOptionMode)
 	bs.WriteByte2(segment.MspaServiceProviderMode)
